@@ -1,0 +1,49 @@
+<br>
+<div class="card w-75 text-light bg-dark mx-auto">
+    <div class="card-header">
+        {{blogPost.title}}
+    </div>
+    <input id="blogPostID" hidden="true" value="{{blogPost.id}}"></input>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <p>{{blogPost.body_text}}</p>
+            <footer class="blockquote-footer">Posted by {{blogPost.user.username}}, {{format_time blogPost.createdAt}}</footer>
+        </blockquote>
+    </div>
+</div>
+
+{{#if loggedIn}}
+{{!-- Reply box --}}
+<br>
+<div class="card w-75 text-light bg-dark mx-auto">
+    <div class="input-group input-group-lg">
+        <input type="text" class="form-control" id="commentBox" for="commentInput" placeholder="Type your reply" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary text-light" id="commentInput" type="button">Reply</button>
+        </div>
+    </div>
+</div>
+{{else}}
+<br>
+<div class="card w-75 text-light bg-dark mx-auto">
+    <div class="input-group input-group-lg">
+        <input type="text" class="form-control" id="commentBox" for="commentInput" placeholder="Log in to reply" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled>
+    </div>
+</div>
+{{/if}}
+
+<br>
+<h1 style="text-align: center">Comments</h1>
+{{#each blogPost.comments}}
+<br>
+<div class="card w-75 text-light bg-dark mx-auto">
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <p>{{this.body_text}}</p>
+            <footer class="blockquote-footer">Posted by {{this.user.username}}, {{format_time this.createdAt}}</footer>
+        </blockquote>
+    </div>
+</div>
+{{/each}}
+
+<script src="/js/comment.js"></script>
